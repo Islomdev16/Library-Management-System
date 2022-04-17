@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+import mysql.connector
 
 class Library:
     def __init__(self, root):
@@ -7,6 +8,26 @@ class Library:
         self.root.title("Library Management System")
         self.root.geometry("1920x930+0+0")
         self.root.resizable(False, False)
+
+        # ========================= Variables Section ==========================================
+        self.number_var = StringVar()
+        self.prn_var = StringVar()
+        self.id_var = StringVar()
+        self.firstname_var = StringVar()
+        self.lastname_var = StringVar()
+        self.address1_var = StringVar()
+        self.address2_var = StringVar()
+        self.postcode_var = StringVar()
+        self.mobile_var = StringVar()
+        self.bookid_var = StringVar()
+        self.booktitle_var = StringVar()
+        self.author_var = StringVar()
+        self.dateborrowed_var = StringVar()
+        self.datedue_var = StringVar()
+        self.daysonbook = StringVar()
+        self.lateratefine_var = StringVar()
+        self.dateoverdue = StringVar()
+        self.finalprice = StringVar()
 
         lbltitle = Label(self.root, text="LIBRARY MANAGEMENT SYSTEM", bg="powder blue", fg="green", bd=20, relief=RIDGE, font=("times new roman", 50, "bold"), padx=2, pady=6)
         lbltitle.pack(side=TOP, fill=X)
@@ -163,9 +184,18 @@ class Library:
         Table_frame = Frame(FrameDetails, bd=6, relief=RIDGE, bg="powder blue")
         Table_frame.place(x=0, y=5, width=1859, height=220)
 
+        xscroll = ttk.Scrollbar(Table_frame, orient=HORIZONTAL)
+        yscroll = ttk.Scrollbar(Table_frame, orient=VERTICAL)
         self.library_table = ttk.Treeview(Table_frame, columns=("membertype", "prnno", "title", "firstname", "lastname", "address1",
                                                                 "address2", "postId", "mobile", "bookId", "booktitle", "author", "dateBorrowed",
-                                                                "datedue", "days", "LateReturnFine", "DateoverDue", "Finalprice"))
+                                                                "datedue", "days", "LateReturnFine", "DateoverDue", "Finalprice"), xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
+
+        xscroll.pack(side=BOTTOM, fill=X)
+        yscroll.pack(side=RIGHT, fill=Y)
+
+        xscroll.config(command=self.library_table.xview)
+        yscroll.config(command=self.library_table.yview)
+
         self.library_table.heading("membertype", text="Member Type")
         self.library_table.heading("prnno", text="PRN No.")
         self.library_table.heading("title", text="Title")
@@ -185,7 +215,8 @@ class Library:
         self.library_table.heading("DateoverDue", text="DateOverDue")
         self.library_table.heading("Finalprice", text="Final Price")
 
-        self.library_table["show"]
+        self.library_table["show"] = "headings"
+        self.library_table.pack(fill=BOTH, expand=1)
 
 if __name__ == "__main__":
     root = Tk()
