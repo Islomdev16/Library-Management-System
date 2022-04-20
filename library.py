@@ -145,7 +145,7 @@ class Library:
         listScrollbar = Scrollbar(DataFrameRight)
         listScrollbar.grid(row=0, column=1, sticky="ns")
 
-        listBooks = ["In Search of Lost Time ", "Ulysses", "Don Quixote", "One Hundred Years of Solitude", "The Great Gatsby", "Moby Dick",
+        listBooks = ["In Search of Lost Time", "Ulysses", "Don Quixote", "One Hundred Years of Solitude", "The Great Gatsby", "Moby Dick",
                      "War and Peace", "Hamlet", "The Odyssey", "Madame Bovary", "The Divine Comedy", "Lolita", "The Brothers Karamazov",
                      "Crime and Punishment", "Wuthering Heights", "The Catcher in the Rye", "Pride and Prejudice", "The Adventures of Huckleberry Finn", "Alice's Adventures in Wonderland", "The Iliad", "To the Lighthouse",
                      "Heart of Darkness", "The Sound and the Fury", "Great Expectations", "The Grapes of Wrath", "Invisible Man "]
@@ -244,7 +244,7 @@ class Library:
     def add_data(self):
         conn = mysql.connector.connect(host="localhost", username="root", password="welcome123", database="library")
         my_cursor = conn.cursor()
-        my_cursor.execute("insert into library values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,)", (
+        my_cursor.execute("insert into book_orders values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (
             self.member_var.get(),
             self.prn_var.get(),
             self.id_var.get(),
@@ -262,14 +262,12 @@ class Library:
             self.daysonbook.get(),
             self.lateratefine_var.get(),
             self.dateoverdue.get(),
-            self.finalprice.get(),
+            self.finalprice.get()
         ))
 
         conn.commit()
         conn.close()
         messagebox.showinfo("Success", "Message has been inserted successfully.!")
-
-
 
 
 if __name__ == "__main__":
